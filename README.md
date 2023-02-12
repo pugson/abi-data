@@ -1,12 +1,14 @@
-# ABI Data — return your smart contract’s ABI as JSON from Etherscan
+# ABI Data — grab your smart contract’s ABI as JSON from Etherscan
+
 ![og-image](https://user-images.githubusercontent.com/6843656/218328296-cd7a07c5-d790-476b-b4fd-80041bf64f79.png)
 
-Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app. Records are cached for 365 days, so after the initial request for a contract, the API will respond very quickly from the CDN. This is just a simple wrapper around Etherscan’s 
+Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app. Records are cached for 365 days, so after the initial request for a contract, the API will respond very quickly from the CDN. This is just a simple wrapper around Etherscan’s
 
 ## React usage example
+
 ```js
-import { useState, useEffect } from 'react';
-import { useContractWrite, usePrepareContractWrite } from 'wagmi';
+import { useState, useEffect } from "react";
+import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
 const contractAddress = "0xecb504d39723b0be0e3a9aa33d646642d1051ee1";
 
@@ -31,11 +33,11 @@ function App() {
   const { config } = usePrepareContractWrite({
     address: contractAddress,
     abi: contractABI,
-    functionName: 'feed',
+    functionName: "feed",
   });
 
   const { data, isLoading, isSuccess, write } = useContractWrite(config);
- 
+
   return (
     <div>
       <button disabled={!write} onClick={() => write?.()}>
@@ -44,7 +46,7 @@ function App() {
       {isLoading && <div>Check Wallet</div>}
       {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
     </div>
-  )
+  );
 }
 ```
 
