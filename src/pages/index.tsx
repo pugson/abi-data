@@ -1,28 +1,56 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { CopyBlock, atomOneDark } from "react-code-blocks";
+import { CopyBlock, dracula } from "react-code-blocks";
 
 function ExampleCodeBlock() {
   return (
     <CopyBlock
-      text={`import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+      text={`import { useState, useEffect } from 'react';
+import { useContractWrite, usePrepareContractWrite } from 'wagmi';
 
 const contractAddress = "0xecb504d39723b0be0e3a9aa33d646642d1051ee1";
-const request = await fetch(\`https://abidata.net/\${contractAddress}\`);
-const response = await fetchABI.json();
-const contractABI = response.abi;
 
-const { config } = usePrepareContractWrite({
-  address: contractAddress,
-  abi: contractABI,
-  functionName: 'feed',
-});
+const useContractABI = (contractAddress) => {
+  const [contractABI, setContractABI] = useState(null);
 
-const { data, isLoading, isSuccess, write } = useContractWrite(config);`}
-      language={"js"}
+  useEffect(() => {
+    const fetchContractABI = async () => {
+      const response = await fetch(\`https://abidata.net/\${contractAddress}\`);
+      const json = await response.json();
+      setContractABI(json.abi);
+    };
+
+    fetchContractABI();
+  }, [contractAddress]);
+
+  return contractABI;
+};
+
+function App() {
+  const contractABI = useContractABI(contractAddress);
+  const { config } = usePrepareContractWrite({
+    address: contractAddress,
+    abi: contractABI,
+    functionName: 'feed',
+  });
+
+  const { data, isLoading, isSuccess, write } = useContractWrite(config);
+ 
+  return (
+    <div>
+      <button disabled={!write} onClick={() => write?.()}>
+        Feed
+      </button>
+      {isLoading && <div>Check Wallet</div>}
+      {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+    </div>
+  )
+}
+`}
+      language={"javascript"}
       showLineNumbers
       startingLineNumber={1}
-      theme={atomOneDark}
+      theme={dracula}
       codeBlock
     />
   );
