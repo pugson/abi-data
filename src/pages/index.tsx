@@ -1,5 +1,32 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { CopyBlock, atomOneDark } from "react-code-blocks";
+
+function ExampleCodeBlock() {
+  return (
+    <CopyBlock
+      text={`import { useContractWrite, usePrepareContractWrite } from 'wagmi'
+
+const contractAddress = "0xecb504d39723b0be0e3a9aa33d646642d1051ee1";
+const request = await fetch(\`https://abidata.net/\${contractAddress}\`);
+const response = await fetchABI.json();
+const contractABI = response.abi;
+
+const { config } = usePrepareContractWrite({
+  address: contractAddress,
+  abi: contractABI,
+  functionName: 'feed',
+});
+
+const { data, isLoading, isSuccess, write } = useContractWrite(config);`}
+      language={"js"}
+      showLineNumbers
+      startingLineNumber={1}
+      theme={atomOneDark}
+      codeBlock
+    />
+  );
+}
 
 export default function Home() {
   const router = useRouter();
@@ -67,11 +94,15 @@ export default function Home() {
             need any API keys.
           </p>
           <p className="text-lg text-gray-400 mt-8">Example:</p>
-          <a href="https://ensdata.net/0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413" target={"_blank"}>
+          <a href="https://abidata.net/0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413" target={"_blank"}>
             <code className="font-mono text-ultra-green mt-1 block">
               abidata.net/0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413
             </code>
           </a>
+
+          <div className="codeblock-example mt-4 font-mono text-sm">
+            <ExampleCodeBlock />
+          </div>
 
           <h2 className="text-1xl sm:text-2xl mt-16">Is this free to use?</h2>
           <p className="text-1xl sm:text-2xl text-gray-600 mt-1">Yes, it’s free for everyone.</p>
