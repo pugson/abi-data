@@ -12,14 +12,14 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name="title" content="𝐀𝐁𝐈 𝐃𝐚𝐭𝐚 — return your smart contract’s ABI as JSON from Etherscan" />
         <meta
           name="description"
-          content="Fetch ABI contract data from Etherscan to use with wagmi and ethers.js in your app."
+          content="Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://abidata.net/" />
         <meta property="og:title" content="𝐀𝐁𝐈 𝐃𝐚𝐭𝐚 — return your smart contract’s ABI as JSON from Etherscan" />
         <meta
           property="og:description"
-          content="Fetch ABI contract data from Etherscan to use with wagmi and ethers.js in your app."
+          content="Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app."
         />
         <meta property="og:image" content="https://abidata.net/og-image.png" />
         <meta property="twitter:creator" content="@pugson" />
@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta property="twitter:title" content="𝐀𝐁𝐈 𝐃𝐚𝐭𝐚 — return your smart contract’s ABI as JSON from Etherscan" />
         <meta
           property="twitter:description"
-          content="Fetch ABI contract data from Etherscan to use with wagmi and ethers.js in your app."
+          content="Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app."
         />
         <meta property="twitter:image" content="https://abidata.net/og-image.png" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

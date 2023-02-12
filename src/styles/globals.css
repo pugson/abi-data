@@ -11,18 +11,23 @@
 }
 
 :root {
-  --green: #00ff58;
-  --pink: #df30f7;
+  --green: #7c00ff;
+  --pink: #f7e330;
   --white: #ffffff;
   --black: #000000;
 }
 @supports (color: color(display-p3 1 1 1)) {
   :root {
-    --green: color(display-p3 0 1 0.34509803921568627);
-    --pink: color(display-p3 0.8745098039215686 0.18823529411764706 0.9686274509803922);
+    --green: color(display-p3 0.49 0 1);
+    --pink: color(display-p3 0.97 0.89 0.19);
     --white: color(display-p3 1 1 1);
     --black: color(display-p3 0 0 0);
   }
+}
+
+.saturate {
+  -webkit-filter: saturate(1.2);
+  filter: saturate(1.2);
 }
 
 *,
