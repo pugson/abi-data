@@ -158,7 +158,7 @@ export default function Home() {
       </main>
       <footer className="mt-32 py-16 px-10 sm:px-12 max-w-5xl xl:mx-auto">
         <p className="text-white">
-          © {new Date().getFullYear()}{" "}
+          © {new Date().getFullYear()} Made by{" "}
           <a href="https://wojtek.im" className="b-pink">
             pugson
           </a>
