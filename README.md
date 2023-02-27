@@ -2,7 +2,9 @@
 
 ![og-image](https://user-images.githubusercontent.com/6843656/218328296-cd7a07c5-d790-476b-b4fd-80041bf64f79.png)
 
-Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app. Records are cached for 365 days, so after the initial request for a contract, the API will respond very quickly from the CDN. This is just a simple wrapper around Etherscan’s
+Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app. Records are cached for 365 days, so after the initial request for a contract, the API will respond very quickly from the CDN. This is just a simple wrapper around Etherscan’s API.
+
+Supports Ethereum Mainnet and Goerli Testnet. Append `?network=goerli` to the URL to fetch ABI for a contract on Goerli.
 
 ## React usage example
 

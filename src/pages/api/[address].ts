@@ -44,7 +44,7 @@ async function trackEvent() {
 export default async function handler(req: any, res: any) {
   await runMiddleware(req, res, cors);
   res.setHeader("Cache-Control", "s-maxage=31536000000");
-  const { address } = req.query;
+  const { address, network } = req.query;
   const addy = address.toLowerCase();
 
   if (!CONTRACT_ADDRESS_REGEX.test(addy)) {
@@ -58,7 +58,11 @@ export default async function handler(req: any, res: any) {
 
   try {
     const response = await fetch(
-      `https://api.etherscan.io/api?module=contract&action=getabi&address=${addy}&apikey=${process.env.ETHERSCAN_API_KEY}`
+      `https://${
+        network === "goerli" ? "api-goerli" : "api"
+      }.etherscan.io/api?module=contract&action=getabi&address=${addy}&apikey=${
+        process.env.ETHERSCAN_API_KEY
+      }`
     );
     const result = await response.json();
     const abi = JSON.parse(result.result);
