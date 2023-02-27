@@ -127,6 +127,11 @@ export default function Home() {
               abidata.net/0xBB9bc244D798123fDe783fCc1C72d3Bb8C189413
             </code>
           </a>
+          <a href="https://abidata.net/0x9a879320A9F7ad2BBb02063d67baF5551D6BD8B0?network=goerli" target={"_blank"}>
+            <code className="font-mono text-ultra-green mt-1 block">
+              abidata.net/0x9a879320A9F7ad2BBb02063d67baF5551D6BD8B0?network=goerli
+            </code>
+          </a>
 
           <div className="codeblock-example mt-4 font-mono text-sm">
             <ExampleCodeBlock />
@@ -143,8 +148,18 @@ export default function Home() {
             Yes. Records are cached for 365 days, so after the initial request for a contract, the API will respond very
             quickly from the CDN.
           </p>
+
           <h2 className="text-1xl sm:text-2xl mt-16">Which networks are supported?</h2>
-          <p className="text-1xl sm:text-2xl text-gray-600 mt-1">Only Ethereum Mainnet is supported right now.</p>
+          <p className="text-1xl sm:text-2xl text-gray-600 mt-1">
+            Ethereum Mainnet and Goerli Testnet are supported right now. You can append{" "}
+            <span className="b-pink">?network=goerli</span> to the URL to fetch ABI for a Goerli contract.
+          </p>
+          <p className="text-lg text-gray-400 mt-8">Example:</p>
+          <a href="https://abidata.net/0x9a879320A9F7ad2BBb02063d67baF5551D6BD8B0?network=goerli" target={"_blank"}>
+            <code className="font-mono text-ultra-green mt-1 block">
+              abidata.net/0x9a879320A9F7ad2BBb02063d67baF5551D6BD8B0?network=goerli
+            </code>
+          </a>
 
           <h2 className="text-1xl sm:text-2xl mt-16">Is the source code available?</h2>
           <p className="text-1xl sm:text-2xl text-gray-600 mt-1">
@@ -178,6 +193,13 @@ export default function Home() {
             @lochieaxon
           </a>{" "}
           for being alive.
+        </p>
+        <p className="text-gray-600 text-sm mt-2">
+          Thanks to{" "}
+          <a href="https://twitter.com/gregskril" target="_blank" className="b-pink">
+            @gregskril
+          </a>{" "}
+          for adding Goerli support.
         </p>
       </footer>
     </>
