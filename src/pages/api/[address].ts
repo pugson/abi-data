@@ -1,4 +1,4 @@
-import chains, { ChainId } from "@/lib/chains";
+import { chains, ChainId } from "@/lib/chains";
 import { UnsupportedNetworkError } from "@/lib/errors";
 import Cors from "cors";
 import fetch from "isomorphic-unfetch";
@@ -101,7 +101,7 @@ export default async function handler(req: any, res: any) {
       abi,
     });
   } catch (e) {
-    let message = `Unable to resolve ${addy}. Please try again or contact @pugson on Telegram if this keeps happening.`;
+    let message = `Unable to resolve ${addy}. Please try again with a different contract or network, or contact @pugson on Telegram if this keeps happening.`;
 
     if (e instanceof UnsupportedNetworkError) {
       message = e.message;

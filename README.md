@@ -8,7 +8,7 @@ Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in 
 
 Supported networks:
 
-| Network name             | Identifier            |
+| Network name             | Network ID            |
 | ------------------------ | --------------------- |
 | Ethereum Mainnet         | none (default)        |
 | Ethereum Goerli Testnet  | `goerli`              |
@@ -31,8 +31,9 @@ Supported networks:
 | Optimism Mainnet         | `optimism`            |
 | Optimism Goerli Testnet  | `optimismGoerli`      |
 
-```
-https://abidata.net/{address}?network={network}
+```jsx
+https://abidata.net/<contract_address>?network=<network_id>
+
 ```
 
 Examples:
@@ -42,7 +43,7 @@ Examples:
 
 ## React usage example
 
-```js
+```jsx
 import { useState, useEffect } from "react";
 import { useContractWrite, usePrepareContractWrite } from "wagmi";
 
