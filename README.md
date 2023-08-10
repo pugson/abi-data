@@ -1,8 +1,8 @@
-# ABI Data — grab your smart contract’s ABI as JSON from Etherscan
+# ABI Data — grab your smart contract’s ABI as JSON from Etherscan, Polygonscan, Arbiscan, BaseScan, BscScan, FTMScan, Snowtrace 
 
 ![og-image](https://user-images.githubusercontent.com/6843656/218328296-cd7a07c5-d790-476b-b4fd-80041bf64f79.png)
 
-Fetch smart contract ABI JSON from Etherscan to use with wagmi and ethers.js in your app. Records are cached for 365 days, so after the initial request for a contract, the API will respond very quickly from the CDN. This is just a simple wrapper around Etherscan’s API.
+Fetch smart contract ABI JSON to use with wagmi and ethers.js in your app. Records are cached for 365 days, so after the initial request for a contract, the API will respond very quickly from the CDN. This is just a simple wrapper around various *scan APIs.
 
 ## General usage
 
@@ -31,7 +31,7 @@ Supported networks:
 | Optimism Mainnet         | `optimism`            |
 | Optimism Goerli Testnet  | `optimismGoerli`      |
 
-```jsx
+```
 https://abidata.net/<contract_address>?network=<network_id>
 
 ```
