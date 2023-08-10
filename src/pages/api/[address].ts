@@ -1,6 +1,8 @@
+import chains, { ChainId } from "@/lib/chains";
+import { UnsupportedNetworkError } from "@/lib/errors";
 import Cors from "cors";
-import type { NextApiRequest, NextApiResponse } from "next";
 import fetch from "isomorphic-unfetch";
+import type { NextApiRequest, NextApiResponse } from "next";
 
 // @ts-ignore
 globalThis.fetch = fetch;
@@ -25,7 +27,7 @@ function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) 
 }
 
 async function trackEvent() {
-  await fetch(`https://queue.simpleanalyticscdn.com/events`, {
+  await fetch("https://queue.simpleanalyticscdn.com/events", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -39,6 +41,40 @@ async function trackEvent() {
       unique: true,
     }),
   });
+}
+
+/**
+ * @param addy A valid lowercased Ethereum address
+ * @param network The network to use.
+ * @returns The JSON abi of the contract at `addy`.
+ */
+async function getAbi(addy: string, network = "mainnet") {
+  if (!Object.keys(chains).includes(network)) {
+    throw new UnsupportedNetworkError(network);
+  }
+
+  const chain = chains[network as ChainId];
+
+  // Network is defined in the mappings but the API key was not provided
+  if (!chain.key) {
+    throw new UnsupportedNetworkError(network);
+  }
+
+  const url = `https://${chain.hostname}/api?module=contract&action=getabi&address=${addy}&apikey=${chain.key}`;
+  const response = await fetch(url);
+
+  // Etherscan API returned an non-200 HTTP code
+  if (!response.ok) {
+    throw new Error(`Cannot fetch ABI on ${network}`);
+  }
+
+  // Etherscan API returned NOTOK code, possibly an invalid API key
+  const result = await response.json();
+  if (result.message === "NOTOK") {
+    throw new Error(`Cannot fetch ABI on ${network}`);
+  }
+
+  return JSON.parse(result.result);
 }
 
 export default async function handler(req: any, res: any) {
@@ -57,16 +93,7 @@ export default async function handler(req: any, res: any) {
   }
 
   try {
-    const response = await fetch(
-      `https://${
-        network === "goerli" ? "api-goerli" : "api"
-      }.etherscan.io/api?module=contract&action=getabi&address=${addy}&apikey=${
-        process.env.ETHERSCAN_API_KEY
-      }`
-    );
-    const result = await response.json();
-    const abi = JSON.parse(result.result);
-
+    const abi = await getAbi(addy, network);
     await trackEvent();
 
     res.status(200).json({
@@ -74,9 +101,15 @@ export default async function handler(req: any, res: any) {
       abi,
     });
   } catch (e) {
+    let message = `Unable to resolve ${addy}. Please try again or contact @pugson on Telegram if this keeps happening.`;
+
+    if (e instanceof UnsupportedNetworkError) {
+      message = e.message;
+    }
+
     res.status(400).json({
       ok: false,
-      error: `Unable to resolve ${addy}. Please try again or contact @pugson on Telegram if this keeps happening.`,
+      error: message,
     });
   }
 }
