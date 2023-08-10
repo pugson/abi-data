@@ -49,8 +49,7 @@ function App() {
 }
 `}
       language={"jsx"}
-      showLineNumbers
-      startingLineNumber={1}
+      showLineNumbers={false}
       theme={dracula}
       codeBlock
     />
@@ -78,7 +77,7 @@ export default function Home() {
         <img src="/gfx.png" alt="ABI Data" className="-mt-4 -ml-2 sm:ml-0 sm:mt-0 saturate" />
         <div className="px-4 py-8">
           <h1 className="max-w-4xl text-2xl leading-9 sm:text-3xl sm:leading-10">
-            Fetch smart contract ABI JSON from Etherscan to use with{" "}
+            Remotely fetch smart contract ABI as JSON to use with{" "}
             <a href="https://wagmi.sh" target="_blank" className="b-pink">
               wagmi
             </a>{" "}
@@ -135,7 +134,7 @@ export default function Home() {
           </p>
           <h2 className="mt-16 text-1xl sm:text-2xl">Can this be used in production?</h2>
           <p className="mt-1 text-gray-600 text-1xl sm:text-2xl">
-            Yes. Records are cached for 365 days, so after the initial request for a contract, the API will respond very
+            Yes. Records are cached for 30 days, so after the initial request for a contract, the API will respond very
             quickly from the CDN.
           </p>
           <h2 className="mt-16 text-1xl sm:text-2xl">Is the source code available?</h2>
@@ -153,16 +152,23 @@ export default function Home() {
           © {new Date().getFullYear()} Made by{" "}
           <a href="https://wojtek.im" className="b-pink">
             pugson
-          </a>
-          .
+          </a>{" "}
+          & friends.
         </p>
         <div className="w-16 h-1 my-4 bg-gray-800"></div>
-        <p className="text-sm text-gray-600">
-          Powered by{" "}
-          <a href="https://docs.etherscan.io" target="_blank" className="b-pink">
-            Etherscan
+        <p className="mt-2 text-sm text-gray-600">
+          Massive thanks to{" "}
+          <a href="https://github.com/mathieu-bour" target="_blank" className="b-pink">
+            Mathieu Bour
           </a>{" "}
-          API.
+          for adding multiple chains & testnet support.
+        </p>
+        <p className="mt-2 text-sm text-gray-600">
+          Thanks to{" "}
+          <a href="https://twitter.com/gregskril" target="_blank" className="b-pink">
+            @gregskril
+          </a>{" "}
+          for adding initial Goerli support.
         </p>
         <p className="mt-2 text-sm text-gray-600">
           Thanks to{" "}
@@ -171,19 +177,18 @@ export default function Home() {
           </a>{" "}
           for being alive.
         </p>
-        <p className="mt-2 text-sm text-gray-600">
-          Thanks to{" "}
-          <a href="https://twitter.com/gregskril" target="_blank" className="b-pink">
-            @gregskril
-          </a>{" "}
-          for adding Goerli support.
+        <p className="max-w-2xl mt-8 text-sm leading-6 text-gray-600">
+          Powered by APIs from Etherscan, Polygonscan, Arbiscan, BaseScan, BscScan, FTMScan, and Snowtrace.
         </p>
-        <p className="mt-2 text-sm text-gray-600">
-          Massive thanks to{" "}
-          <a href="https://github.com/mathieu-bour" target="_blank" className="b-pink">
-            Mathieu Bour
-          </a>{" "}
-          for adding multiple chains & testnet support.
+
+        <p className="max-w-lg mt-8 text-sm text-gray-600">
+          Looking for a free API for fetching ENS records and avatars for wallets?
+        </p>
+        <p className="mt-1 text-sm">
+          Go to{" "}
+          <a href="https://ensdata.net" className="b-pink" target="_blank">
+            ensdata.net
+          </a>
         </p>
       </footer>
     </>
