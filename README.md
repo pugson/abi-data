@@ -1,4 +1,4 @@
-# ABI Data — grab your smart contract’s ABI as JSON from Etherscan, Polygonscan, Arbiscan, BaseScan, BscScan, FTMScan, Snowtrace 
+# ABI Data — grab your smart contract’s ABI as JSON from Etherscan, Polygonscan, Arbiscan, BaseScan, BscScan, FTMScan, Snowtrace, GnosisScan
 
 ![og-image](https://user-images.githubusercontent.com/6843656/218328296-cd7a07c5-d790-476b-b4fd-80041bf64f79.png)
 
