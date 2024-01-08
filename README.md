@@ -9,7 +9,7 @@ Fetch smart contract ABI JSON to use with wagmi and ethers.js in your app. Recor
 Supported networks:
 
 | Network name             | Network ID            |
-| ------------------------ | --------------------- |
+|--------------------------|-----------------------|
 | Ethereum Mainnet         | none (default)        |
 | Ethereum Goerli Testnet  | `goerli`              |
 | Ethereum Sepolia Testnet | `sepolia`             |
@@ -30,6 +30,7 @@ Supported networks:
 | Polygon zkEVM Testnet    | `polygonZkEvmTestnet` |
 | Optimism Mainnet         | `optimism`            |
 | Optimism Goerli Testnet  | `optimismGoerli`      |
+| Gnosis Mainnet           | `gnosis`              |
 
 ```
 https://abidata.net/<contract_address>?network=<network_id>

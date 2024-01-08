@@ -113,6 +113,12 @@ export const chains = {
     label: "Ethereum Sepolia Testnet",
     id: "sepolia",
   },
+  gnosis: {
+    hostname: "api.gnosisscan.io",
+    key: process.env.GNOSISSCAN_API_KEY,
+    label: "Gnosis Mainnet",
+    id: "gnosis",
+  },
 } satisfies Record<string, ChainSpec>;
 
 export type ChainId = keyof typeof chains;
