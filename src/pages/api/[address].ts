@@ -3,6 +3,8 @@ import { UnsupportedNetworkError } from "@/lib/errors";
 import Cors from "cors";
 import fetch from "isomorphic-unfetch";
 import type { NextApiRequest, NextApiResponse } from "next";
+import { getAbiItem, trim } from "viem";
+import { publicClient } from "@/lib/viem";
 
 // @ts-ignore
 globalThis.fetch = fetch;
@@ -14,7 +16,11 @@ const cors = Cors({
   methods: ["POST", "GET", "HEAD"],
 });
 
-function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) {
+function runMiddleware(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  fn: Function
+) {
   return new Promise((resolve, reject) => {
     fn(req, res, (result: any) => {
       if (result instanceof Error) {
@@ -24,6 +30,39 @@ function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: Function) 
       return resolve(result);
     });
   });
+}
+
+async function readContractImplementationItem(
+  addy: `0x${string}`,
+  network = "mainnet"
+) {
+  // todo: use network to get network specific public client
+  const response = await publicClient.readContract({
+    address: addy,
+    abi: [],
+    functionName: "implementation",
+  });
+
+  return response;
+}
+
+// https://eips.ethereum.org/EIPS/eip-1967#logic-contract-address
+const EIP_1967_IMPLEMENTATION_CONTRACT_ADDRESS_STORAGE_SLOT =
+  "0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc";
+
+async function getImplementationAtStorageSlot(
+  addy: `0x${string}`,
+  network = "mainnet"
+) {
+  // todo: use network to get network specific public client
+  const data = await publicClient.getStorageAt({
+    address: addy,
+    slot: EIP_1967_IMPLEMENTATION_CONTRACT_ADDRESS_STORAGE_SLOT,
+  });
+
+  const address = trim(data as `0x${string}`);
+  if (address === "0x00") return null;
+  return address;
 }
 
 async function trackEvent() {
@@ -96,9 +135,39 @@ export default async function handler(req: any, res: any) {
     const abi = await getAbi(addy, network);
     await trackEvent();
 
-    res.status(200).json({
+    const hasImplementationAbiItem =
+      getAbiItem({ abi, name: "implementation" }) != null;
+
+    let implementationAddress;
+    if (hasImplementationAbiItem)
+      implementationAddress = await readContractImplementationItem(
+        address,
+        network
+      );
+
+    if (!implementationAddress) {
+      implementationAddress = await getImplementationAtStorageSlot(
+        address,
+        network
+      );
+    }
+
+    if (implementationAddress == null) {
+      return res.status(200).json({
+        ok: true,
+        abi,
+      });
+    }
+
+    const implementationAbi = await getAbi(implementationAddress, network);
+
+    return res.status(200).json({
       ok: true,
-      abi,
+      abi: {
+        ...abi,
+        implementationAddress,
+        implementationAbi,
+      },
     });
   } catch (e) {
     let message = `Unable to resolve ${addy}. Please try again with a different contract or network, or contact @pugson on Telegram if this keeps happening.`;
