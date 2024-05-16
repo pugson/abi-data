@@ -74,7 +74,11 @@ export default function Home() {
   return (
     <>
       <main className="max-w-5xl p-4 overflow-hidden md:p-6 lg:mx-auto">
-        <img src="/gfx.png" alt="ABI Data" className="-mt-4 -ml-2 sm:ml-0 sm:mt-0 saturate" />
+        <img
+          src="/gfx.png"
+          alt="ABI Data"
+          className="-mt-4 -ml-2 sm:ml-0 sm:mt-0 saturate max-w-[796px] w-full relative left-[17px] top-[5px]"
+        />
         <div className="px-4 py-8">
           <h1 className="max-w-4xl text-2xl leading-9 sm:text-3xl sm:leading-10">
             Remotely fetch smart contract ABI as JSON to use with{" "}
