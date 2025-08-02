@@ -3,6 +3,7 @@ export type ChainSpec = {
   key: string | undefined;
   label: string;
   id: string;
+  chainId?: number; // For Etherscan V2 API
 };
 
 // The supported chains, alphabetically sorted. We use the same chain names as wagmi.
@@ -60,16 +61,18 @@ export const chains = {
     id: "fantomTestnet",
   },
   goerli: {
-    hostname: "api-goerli.etherscan.io",
+    hostname: "api.etherscan.io",
     key: process.env.ETHERSCAN_API_KEY,
     label: "Ethereum Goerli Testnet",
     id: "goerli",
+    chainId: 5,
   },
   mainnet: {
     hostname: "api.etherscan.io",
     key: process.env.ETHERSCAN_API_KEY,
     label: "Ethereum Mainnet",
     id: "mainnet",
+    chainId: 1,
   },
   polygon: {
     hostname: "api.polygonscan.com",
@@ -108,10 +111,11 @@ export const chains = {
     id: "optimismGoerli",
   },
   sepolia: {
-    hostname: "api-sepolia.etherscan.io",
+    hostname: "api.etherscan.io",
     key: process.env.ETHERSCAN_API_KEY,
     label: "Ethereum Sepolia Testnet",
     id: "sepolia",
+    chainId: 11155111,
   },
   gnosis: {
     hostname: "api.gnosisscan.io",

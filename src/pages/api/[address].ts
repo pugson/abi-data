@@ -60,7 +60,11 @@ async function getAbi(addy: string, network = "mainnet") {
     throw new UnsupportedNetworkError(network);
   }
 
-  const url = `https://${chain.hostname}/api?module=contract&action=getabi&address=${addy}&apikey=${chain.key}`;
+  const url = (chain as any).chainId
+    ? `https://${chain.hostname}/v2/api?chainid=${
+        (chain as any).chainId
+      }&module=contract&action=getabi&address=${addy}&apikey=${chain.key}`
+    : `https://${chain.hostname}/api?module=contract&action=getabi&address=${addy}&apikey=${chain.key}`;
   const response = await fetch(url);
 
   // Etherscan API returned an non-200 HTTP code
